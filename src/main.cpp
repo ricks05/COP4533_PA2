@@ -21,13 +21,23 @@ int main() {
         input >> r[i];
     }
 
+    input.close();
+
+    ofstream output("..\\io\\example.out");
+    if (!output) {
+        cerr << "Failed to open example.out";
+        return 1;
+    }
+
     FIFO fifo(k, m, r);
     while (fifo.nextItem()) {}
-    cout << "FIFO  : " << fifo.misses << endl;
+    output << "FIFO  : " << fifo.misses << endl;
 
     LRU lru(k, m, r);
     while (lru.nextItem()) {}
-    cout << "LRU   : " << lru.misses << endl;
+    output << "LRU   : " << lru.misses << endl;
+
+    output.close();
 
     return 0;
 }
