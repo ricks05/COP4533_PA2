@@ -21,5 +21,9 @@ int main() {
     while (fifo.nextItem()) {}
     cout << "FIFO  : " << fifo.misses << endl;
 
+    LRU lru(k, m, r);
+    while (lru.nextItem()) {}
+    cout << "LRU   : " << lru.misses << endl;
+
     return 0;
 }

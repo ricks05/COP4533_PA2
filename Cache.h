@@ -1,6 +1,8 @@
 #include <vector>
 #include <queue>
-#include<unordered_set>
+#include <unordered_set>
+#include <set>
+#include <map>
 
 #pragma once
 
@@ -10,7 +12,6 @@ class Cache {
 protected:
     int k, m, i;
     vector<int> r;
-    unordered_set<int> inCache;
 public:
     int misses;
     Cache(int kk, int mm, vector<int>& rr);
@@ -18,8 +19,17 @@ public:
 };
 
 class FIFO : public Cache {
+    unordered_set<int> cache;
     queue<int> q;
 public:
     FIFO(int kk, int mm, vector<int>& rr);
+    bool nextItem() override;
+};
+
+class LRU : public Cache {
+    set<pair<int, int>, greater<>> cache;
+    map<int, int> lastUsed;
+public:
+    LRU(int kk, int mm, vector<int>& rr);
     bool nextItem() override;
 };
