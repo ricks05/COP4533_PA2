@@ -1,16 +1,25 @@
-//
-// Created by hbsil on 3/5/2026.
-//
+#include <vector>
+#include <queue>
+#include<unordered_set>
 
-#ifndef PA2_CACHE_H
-#define PA2_CACHE_H
+#pragma once
 
-
+using namespace std;
 
 class Cache {
-
+protected:
+    int k, m, i;
+    vector<int> r;
+    unordered_set<int> inCache;
+public:
+    int misses;
+    Cache(int kk, int mm, vector<int>& rr);
+    virtual bool nextItem() = 0;
 };
 
-
-
-#endif //PA2_CACHE_H
+class FIFO : public Cache {
+    queue<int> q;
+public:
+    FIFO(int kk, int mm, vector<int>& rr);
+    bool nextItem() override;
+};
