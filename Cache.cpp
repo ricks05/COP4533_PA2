@@ -22,17 +22,20 @@ bool FIFO::nextItem() {
 LRU::LRU(int kk, int mm, vector<int> &rr) : Cache(kk, mm, rr) {}
 
 bool LRU::nextItem() {
-    if (cache.find(make_pair(lastUsed[r[i]], r[i])) == cache.end()) {
+    auto it = pos.find(r[i]);
+    if (it == pos.end()) {
         misses++;
         if (cache.size() == k) {
-            cache.erase(cache.begin());
+            int toRemove = cache.front();
+            cache.pop_front();
+            pos.erase(toRemove);
         }
     }
     else {
-        cache.erase(make_pair(lastUsed[r[i]], r[i]));
+        cache.erase(pos[r[i]]);
     }
-    cache.insert(make_pair(m-i-1, r[i]));
-    lastUsed[r[i]] = m-i-1;
+    cache.push_back(r[i]);
+    pos[r[i]] = --cache.end();
 
     return ++i < m;
 }

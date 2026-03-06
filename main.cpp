@@ -11,6 +11,10 @@ int main() {
 
     int k, m;
     input >> k >> m;
+    if (k < 1) {
+        cerr << "Invalid cache capacity k";
+        return 1;
+    }
 
     vector<int> r(m);
     for (int i = 0; i < m; i++) {

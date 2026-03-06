@@ -1,8 +1,8 @@
 #include <vector>
 #include <queue>
 #include <unordered_set>
-#include <set>
-#include <map>
+#include <list>
+#include <unordered_map>
 
 #pragma once
 
@@ -27,8 +27,8 @@ public:
 };
 
 class LRU : public Cache {
-    set<pair<int, int>, greater<>> cache;
-    map<int, int> lastUsed;
+    list<int> cache;
+    unordered_map<int, list<int>::iterator> pos;
 public:
     LRU(int kk, int mm, vector<int>& rr);
     bool nextItem() override;
