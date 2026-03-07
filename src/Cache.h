@@ -3,6 +3,8 @@
 #include <unordered_set>
 #include <list>
 #include <unordered_map>
+#include <set>
+#include <climits>
 
 #pragma once
 
@@ -31,5 +33,13 @@ class LRU : public Cache {
     unordered_map<int, list<int>::iterator> pos;
 public:
     LRU(int kk, int mm, vector<int>& rr);
+    bool nextItem() override;
+};
+
+class OPTFF : public Cache {
+    set<pair<int, int>, greater<>> cache;
+    unordered_map<int, queue<int>> pos;
+public:
+    OPTFF(int kk, int mm, vector<int>& rr);
     bool nextItem() override;
 };

@@ -39,3 +39,32 @@ bool LRU::nextItem() {
 
     return ++i < m;
 }
+
+OPTFF::OPTFF(int kk, int mm, vector<int> &rr) : Cache(kk, mm, rr) {
+    for (int i = 0; i < r.size(); i++) {
+        pos[r[i]].push(i);
+    }
+    for (auto& p : pos) {
+        p.second.push(INT_MAX);
+    }
+}
+
+bool OPTFF::nextItem() {
+    int curPos = pos[r[i]].front();
+    pos[r[i]].pop();
+
+    auto it = cache.find(make_pair(curPos, r[i]));
+    if (it == cache.end()) {
+        misses++;
+        if (cache.size() == k) {
+            cache.erase(cache.begin());
+        }
+        cache.insert(make_pair(pos[r[i]].front(), r[i]));
+    }
+    else {
+        cache.erase(it);
+        cache.insert(make_pair(pos[r[i]].front(), r[i]));
+    }
+
+    return ++i < m;
+}

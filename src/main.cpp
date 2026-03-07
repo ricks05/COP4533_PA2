@@ -37,6 +37,10 @@ int main() {
     while (lru.nextItem()) {}
     output << "LRU   : " << lru.misses << endl;
 
+    OPTFF optff(k, m, r);
+    while (optff.nextItem()) {}
+    output << "OPTFF : " << optff.misses << endl;
+
     output.close();
 
     return 0;
